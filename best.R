@@ -39,21 +39,21 @@
       stop("invalid state")}
   }
   
-  #now we select only observations that match the state and the outcome specified by user
+  # now we select only observations that match the state and the outcome specified by user
     best_data <- my_data[valid_state, c("Hospital.Name", select_o)] 
     
-  #make sure selected outcome column is numeric:
+  # make sure selected outcome column is numeric:
     best_data[, select_o] <- as.numeric(best_data[, select_o])
     
-  #order our new table by outcome and Hospital.Name
+  # order our new table by outcome and Hospital.Name
     ordered <- order(best_data[, select_o], best_data[, "Hospital.Name"])
     
-  #To select the Hosital with the lowest mortality rate, we just need to select 
-  #the first element in our ordered table
+  # To select the Hosital with the lowest mortality rate, we just need to select 
+  # the first element in our ordered table
     as.character(best_data[, "Hospital.Name"][ordered[1]])
   }
   
-  # sample outputs:
+  # sample inputs:
   best("TX", "heart attack")
   best("TX", "heart failure")
   best("MD", "heart attack")
