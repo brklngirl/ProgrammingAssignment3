@@ -35,22 +35,21 @@
   rank_data[, select_o] <- as.numeric(rank_data[, select_o])
   
   # order our new table by outcome and Hospital.Name
-  ordered <- order(rank_data[, select_o], rank_data[, "Hospital.Name"])
+  ordered <- rank_data[order(rank_data[, select_o], rank_data$Hospital.Name, na.last = NA), ]
   
-  # next we will define values for our hospital rank
+  # now we will define values for Hospital rank
   rank <- as.integer() 
   rank <- if (num == "best") {
     1
   } else if (num < nrow(rank_data)) {
     num 
   } else if (num == "worst") {
-    nrow(rank_data)
+    nrow(ordered)
   } else { 
     stop("NA")
   }
-  
-  # and finally, we select the Hospital with a given rank
-    as.character(rank_data$Hospital.Name[ordered[rank]])
+  # Now we select the Hospital with a given rank
+  as.character(ordered$Hospital.Name[rank])
 }
 
 #sample inputs:
